@@ -5,14 +5,17 @@ import setup
 
 description = "Type $info to see more information."
 TOKEN = setup.TOK
-client = commands.Bot(command_prefix='$', description=description, help_command=None)
+client = commands.Bot(command_prefix='z!', description=description, help_command=None)
 path = './data.txt'
 
 
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-    game = discord.Game("WaifuBot! | Mention for Information!")
+    initcount = 0
+    for g in client.guilds:
+        initcount = initcount + len(g.members)
+    game = discord.Game("z!help | Spotting zetas in " + str(len(client.guilds)) + " servers for " + str(initcount) + " otaku!")
     await client.change_presence(status=discord.Status.online, activity=game)
 
 @client.event
@@ -40,7 +43,8 @@ async def on_message(message):
         for line in lines:  
             if str(message.guild.id)in line.strip("\n"):
                 temp = line
-        split = temp.split(':');    
+        split = temp.split(':'); 
+        #print(split)        
         ping = split[1]
         #print("Ping :" + ping)
         code = str(message.embeds[0].color)[1:]     
@@ -74,12 +78,12 @@ async def on_message(message):
         
 
         
-    if message.content.startswith('$setuser'):
+    if message.content.startswith('z!setping'):
         if( message.guild.owner_id != message.author.id ):  
             await message.channel.send("Error. You must be the server owner to use this command.")
             return
-        if( "$setuser" == message.content ):    
-            await message.channel.send("Usage: $setuser <ping>")
+        if( "z!setping" == message.content ):    
+            await message.channel.send("Usage: z!setping <ping>")
             return
         split = message.content.split(' ');
         if( len(split) > 2  ):  
@@ -95,10 +99,10 @@ async def on_message(message):
             if str(message.guild.id) not in line.strip("\n"):
                 tempfile.write(line)
             else:
-                response = response + "Updating Server's Mentioned User...\n"
+                response = response + "Updating Server's Choice of Ping...\n"
         tempfile.write("\n" + entry)
         tempfile.close()
-        await message.channel.send(response + "New User Set. I will now ping " + split[1] + " when potential Zetas spawn!")
+        await message.channel.send(response + "New Ping Set. I will now ping " + split[1] + " when potential Zetas spawn!")
         file = open(path,'r')
         ##removing black lines
         lines = file.readlines()        
@@ -120,20 +124,40 @@ async def add(ctx, left: int, right: int):
     
 @client.command()
 async def help(ctx):
-    embed=discord.Embed(title="Help/Information", description="This bot was created by  in order to notify users when a high-rarity waifu is spawned by WaifuBot.", color=0xd256d7)
+    embed=discord.Embed(title="Help/Information", description="This bot was created by  in order to notify users when a high-rarity waifu is spawned by WaifuBot. Additionally, the bot lists the rarity of each spawn.", color=0xd256d7)
     embed.set_thumbnail(url="https://66.media.tumblr.com/079c3723edc4d4e39bae11d4f4f77919/tumblr_peasla2ztT1xdtu9bo1_r1_250.png")
-    embed.add_field(name="Want Zeta Notifications in YOUR Server?", value="Add the bot using this link: https://bit.ly/ZetaNotifs", inline=False)
-    embed.add_field(name="Want to host your instance of the bot?", value="GH Repo Coming Soon", inline=False)
-    embed.add_field(name="How do I work?", value="When a Zeta/pink waifu spawns, this bot will mention the user specified by the owner of the server. To set the person who will be notified when a Zeta spawns, use $setuser <ping the user>. Additionally, the bot lists rarity of each spawn.", inline=False)
-    embed.set_footer(text="Made by Nathan Melwani/NateM135, a student entering Purdue University.")  
+    embed.add_field(name="Bot Invite Link", value="[Want to invite the bot to your server? Use this link!](https://bit.ly/ZetaNotifs)", inline=False)
+    embed.add_field(name="Github Repo", value="[Download and host the bot yourself here! (Documentation Coming Soon)](https://github.com/NateM135/zeta-notifications-for-waifubot)", inline=False)
+    embed.add_field(name="How do I work?", value="When a Zeta/pink waifu spawns, this bot will mention a user, role, or ping specified by the owner of the server.", inline=False)
+    embed.add_field(name="Instructions", value="To set the person who will be notified when a Zeta spawns, use z!setping *ping*. The ping can be a role, a single user, or everyone/here.", inline=False)
+    embed.add_field(name="Example #1", value="If I wanted the bot to ping nate#7686 when Zeta Waifus spawn, I would do z!setping @nate#7686 (mentioning the user)", inline=True)
+    embed.add_field(name="Example #2", value="If I wanted to ping the role WaifuBot, I would do z!setping @Waifubot (The bot must have permission to ping the role!)", inline=True)
+    embed.add_field(name="Need Support?", value="[Join this server and ask nate#7686 for help!](https://discord.gg/T6Rmk7C)", inline=True)
+    embed.set_footer(text="Made by nate#7686/NateM135, a student entering Purdue University.")  
     await ctx.send(embed=embed)
     return
     
 @client.command()
 async def invite(ctx):
     embed=discord.Embed(color=0x88c4dd)
-    embed.add_field(name="Zeta Collector Bot Invite", value="Bot Invite Link: https://bit.ly/ZetaNotifs", inline=False)
-    await ctx.send(embed=embed)  
+    embed.add_field(name="Zeta Collector Bot Invite", value="[Want to invite the bot to your server? Use this link!](https://bit.ly/ZetaNotifs)", inline=False)
+    await ctx.send(embed=embed)
+
+@client.command()
+async def us(ctx):
+    guildnum = str(len(ctx.bot.guilds))
+    usernum = str(len(ctx.bot.users))
+    count = 0
+    for g in ctx.bot.guilds:
+        count = count + len(g.members)
+    game = discord.Game("z!help | Spotting zetas in " + str(len(client.guilds)) + " servers for " + str(count) + " otaku!")
+    await client.change_presence(status=discord.Status.online, activity=game)
+    await ctx.send("Updated Status.\nGuilds: " + guildnum + "\nUsers: " + str(count))
+    return 
+
+@client.command()
+async def setping(ctx):
+    return
     
 
 client.run(TOKEN)
