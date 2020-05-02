@@ -22,13 +22,13 @@ z!setping <ping>
  
 The ping can be a role, a single user, or @everyone/@here.
 
-###Examples
+### Examples
 
-######User
+###### User
 
 ![userexample](https://i.imgur.com/niN2LQS.png)
 
-######Roles
+###### Roles
 
 The first thing you should do is create a role with this permission enabled:
 
@@ -38,7 +38,7 @@ After that, you can use the z!setping command again.
 
 ![roleex2](https://i.imgur.com/flvw5gG.png)
 
-######Other Pings
+###### Other Pings
 
 ```
 z!setrole @everyone
@@ -50,7 +50,7 @@ z!setrole @here
 
 **In order to ping more than one user you need to create a role!**
 
-###Normal Spawns
+### Normal Spawns
 
 The bot will comment on the rarity of all the spawns in each server it is in. Below are a few examples.
 
@@ -59,13 +59,13 @@ The bot will comment on the rarity of all the spawns in each server it is in. Be
 ![spawn3](https://i.imgur.com/kvJS9Ji.png)
 ![spawn4](https://i.imgur.com/VttWjDC.png)
 
-###Zeta Spawns
+### Zeta Spawns
 
 This is what the bot will look like when a Zeta is spawned.
 
 ![zetasamplespawn](https://i.imgur.com/VGiiv0q.png)
 
-###Self Hosting the Bot
+### Self Hosting the Bot
 
 This bot is made with discord.py, so we will need to set up an environment to run the bot in.
 
