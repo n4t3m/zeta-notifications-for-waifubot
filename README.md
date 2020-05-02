@@ -69,4 +69,57 @@ This is what the bot will look like when a Zeta is spawned.
 
 This bot is made with discord.py, so we will need to set up an environment to run the bot in.
 
-**guide coming soon**
+This guide assumes that you already have Python3 installed on your PC. If you do not have Python3 installed, install it first before proceeding.
+
+Open your common prompt and type the following:
+
+```
+pip3 install -r .\requirements.txt
+```
+
+
+If you are on Windows, you need to run the command prompt as administrator. If you are on Linux, add sudo before the command.
+
+
+Next, open 
+
+```
+setup.py
+```
+
+and place your bot token into the file.
+
+
+
+Here is what it looks before you add a token:
+
+```
+#Enter Your bot token here inbetween the single quotes.
+TOK = ''
+```
+
+Here is what it should look like AFTER you add a token:
+```
+#Enter Your bot token here inbetween the single quotes.
+TOK = '6qrZcUqja7812RVdnEKjpzOL4CvHBFG'
+```
+
+**Note, tokens difer in length. Yours may not be as long as mine. For instructions on how to get your bot's token, [click here](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
+
+
+Now that you have your token set up, you are ready to run the bot. Go back to your command prompt and type:
+
+```
+python3 .\bot.py 
+```
+
+This will begin the bot. If everything has worked, your command prompt will have something similar to the following prompt:
+
+```
+We have logged in as Zeta Notifications#3432
+```
+
+In this case, Zeta Notifications#3432 is the public verison of the bot that I am hosting on my VPS. Your user will be different if you are self hosting.
+
+At this point, you can generate an oauth link and follow the server setup instructions above!
+
