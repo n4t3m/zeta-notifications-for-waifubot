@@ -15,7 +15,7 @@ async def on_ready():
     initcount = 0
     for g in client.guilds:
         initcount = initcount + len(g.members)
-    game = discord.Game("z!help | Spotting zetas in " + str(len(client.guilds)) + " servers for " + str(initcount) + " otaku!")
+    game = discord.Game("z!invite | z!help | Spotting zetas in " + str(len(client.guilds)) + " servers for " + str(initcount) + " otaku!")
     await client.change_presence(status=discord.Status.online, activity=game)
 
 @client.event
@@ -56,7 +56,7 @@ async def on_message(message):
         color = str(jsonResponse["name"]["value"])
         ##print("Color: " + color)
         if( "Mineral Green" == color or "Tom Thumb" == color or "Limed Spruce" == color):   
-            await message.channel.send("Rarity: Alpha/Beta")    
+            await message.channel.send("Rarity: Alpha/Beta.")    
         elif( "Bush" == color or "Metallic Bronze" == color or "Woodland" == color or "TBD" == color):  
             await message.channel.send("Rarity: Beta/Gamma")
         elif( "Palm Leaf" == color or "Irish Coffee" == color or "Punga" == color or "Bronze Olive" == color or "Turtle Green" == color or "Palm Leaf" == color or "Jambalaya" == color or "Cioccolato" == color or "Gable Green" == color):    
@@ -74,47 +74,7 @@ async def on_message(message):
             print("Found potential zeta in server " + message.guild.name)              
         else:   
             await message.channel.send("Color Unknown. Color Name: " + color)   
-            print("Color Unknown. Color Name: " + color)            
-         
-        
-        
-
-        
-    if message.content.startswith('z!setping'):
-        if( message.guild.owner_id != message.author.id ):  
-            await message.channel.send("Error. You must be the server owner to use this command.")
-            return
-        if( "z!setping" == message.content ):    
-            await message.channel.send("Usage: z!setping <ping>")
-            return
-        split = message.content.split(' ');
-        if( len(split) > 2  ):  
-            await message.channel.send("Error. Too Many Paramters.")
-            return
-        entry = str(message.guild.id) + ":" + split[1]
-        response = ""
-        file = open(path,'r')
-        lines = file.readlines()        
-        file.close()
-        tempfile = open(path,'w')
-        for line in lines:  
-            if str(message.guild.id) not in line.strip("\n"):
-                tempfile.write(line)
-            else:
-                response = response + "Updating Server's Choice of Ping...\n"
-        tempfile.write("\n" + entry)
-        tempfile.close()
-        await message.channel.send(response + "New Ping Set. I will now ping " + split[1] + " when potential Zetas spawn!")
-        file = open(path,'r')
-        ##removing black lines
-        lines = file.readlines()        
-        file.close()
-        tempfile = open(path,'w')
-        for line in lines:  
-            if "" != line.strip("\n"):
-                tempfile.write(line)
-        tempfile.close()
-        print("New Database Entry")
+            print("Color Unknown. Color Name: " + color)   
         
     await client.process_commands(message)
   
@@ -129,7 +89,7 @@ async def help(ctx):
     embed=discord.Embed(title="Help/Information", description="This bot was created by  in order to notify users when a high-rarity waifu is spawned by WaifuBot. Additionally, the bot lists the rarity of each spawn.", color=0xd256d7)
     embed.set_thumbnail(url="https://66.media.tumblr.com/079c3723edc4d4e39bae11d4f4f77919/tumblr_peasla2ztT1xdtu9bo1_r1_250.png")
     embed.add_field(name="Bot Invite Link", value="[Want to invite the bot to your server? Use this link!](https://bit.ly/ZetaNotifs)", inline=False)
-    embed.add_field(name="Github Repo", value="[Download and host the bot yourself here! (Documentation Coming Soon)](https://github.com/NateM135/zeta-notifications-for-waifubot)", inline=False)
+    embed.add_field(name="Github Repo", value="[View Instructions for Server Setup or Selfhost Setup + Source Code](https://github.com/NateM135/zeta-notifications-for-waifubot)", inline=False)
     embed.add_field(name="How do I work?", value="When a Zeta/pink waifu spawns, this bot will mention a user, role, or ping specified by the owner of the server.", inline=False)
     embed.add_field(name="Instructions", value="To set the person who will be notified when a Zeta spawns, use z!setping *ping*. The ping can be a role, a single user, or everyone/here.", inline=False)
     embed.add_field(name="Example #1", value="If I wanted the bot to ping nate#7686 when Zeta Waifus spawn, I would do z!setping @nate#7686 (mentioning the user)", inline=True)
@@ -142,7 +102,7 @@ async def help(ctx):
 @client.command()
 async def invite(ctx):
     embed=discord.Embed(color=0x88c4dd)
-    embed.add_field(name="Zeta Collector Bot Invite", value="[Want to invite the bot to your server? Use this link!](https://bit.ly/ZetaNotifs)", inline=False)
+    embed.add_field(name="Zeta Notifications Bot Invite", value="[Want to invite the bot to your server? Use this link!](https://bit.ly/ZetaNotifs)", inline=False)
     await ctx.send(embed=embed)
 
 @client.command()
@@ -152,14 +112,56 @@ async def us(ctx):
     count = 0
     for g in ctx.bot.guilds:
         count = count + len(g.members)
-    game = discord.Game("z!help | Spotting zetas in " + str(len(client.guilds)) + " servers for " + str(count) + " otaku!")
+    game = discord.Game("z!help | z!invite | Spotting zetas in " + str(len(client.guilds)) + " servers for " + str(count) + " otaku!")
     await client.change_presence(status=discord.Status.online, activity=game)
     await ctx.send("Updated Status.\nGuilds: " + guildnum + "\nUsers: " + str(count))
     return 
 
 @client.command()
-async def setping(ctx):
-    return
+async def ping(ctx):
+    await ctx.send('Pong! {0}'.format(round(client.latency, 1)))
+    
+@client.command()
+async def setup(ctx):
+    embed=discord.Embed(color=0x88c4dd)
+    embed.add_field(name="Zeta Notificaitons Setup Guide", value="[Need help with setup? Follow this guide!](https://github.com/NateM135/zeta-notifications-for-waifubot#server-setup)", inline=False)
+    await ctx.send(embed=embed)
+
+
+
+        
+@client.command()
+@commands.has_permissions(administrator=True)
+async def setping(ctx, pingid): 
+    entry = str(ctx.message.guild.id) + ":" + pingid
+    response = ""
+    file = open(path,'r')
+    lines = file.readlines()        
+    file.close()
+    tempfile = open(path,'w')
+    for line in lines:  
+        if str(ctx.message.guild.id) not in line.strip("\n"):
+            tempfile.write(line)
+        else:
+            response = response + "Updating Server's Choice of Ping...\n"
+    tempfile.write("\n" + entry)
+    tempfile.close()
+    await ctx.send(response + "New Ping Set. I will now ping " + pingid + " when potential Zetas spawn!")
+    file = open(path,'r')
+    ##removing black lines
+    lines = file.readlines()        
+    file.close()
+    tempfile = open(path,'w')
+    for line in lines:  
+        if "" != line.strip("\n"):
+            tempfile.write(line)
+    tempfile.close()
+    print("Ping Updated in " + ctx.guild.name)
+    
+@setping.error
+async def setping_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send('You must be an administrator to use this command.')
     
 
 client.run(TOKEN)
