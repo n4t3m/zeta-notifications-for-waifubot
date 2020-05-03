@@ -43,6 +43,8 @@ async def on_message(message):
         for line in lines:  
             if str(message.guild.id)in line.strip("\n"):
                 temp = line
+        if temp == "":
+            temp = "a:No ping set for this server."
         split = temp.split(':'); 
         #print(split)        
         ping = split[1]
