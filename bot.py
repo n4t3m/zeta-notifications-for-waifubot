@@ -95,7 +95,7 @@ async def help(ctx):
     embed.add_field(name="Example #1", value="If I wanted the bot to ping nate#7686 when Zeta Waifus spawn, I would do z!setping @nate#7686 (mentioning the user)", inline=True)
     embed.add_field(name="Example #2", value="If I wanted to ping the role WaifuBot, I would do z!setping @Waifubot (The bot must have permission to ping the role!)", inline=True)
     embed.add_field(name="Need Support?", value="[Join this server and ask nate#7686 for help!](https://discord.gg/T6Rmk7C)", inline=True)
-    embed.set_footer(text="Made by nate#7686/NateM135, a student entering Purdue University.")  
+    embed.set_footer(text="Made by nate#7686/NateM135")  
     await ctx.send(embed=embed)
     return
     
