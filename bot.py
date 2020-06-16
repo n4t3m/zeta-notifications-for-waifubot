@@ -5,8 +5,16 @@ import setup
 
 description = "Type $info to see more information."
 TOKEN = setup.TOK
-client = commands.Bot(command_prefix='z!', description=description, help_command=None)
-path = './data.txt'
+client = commands.Bot(command_prefix='!', description=description, help_command=None)
+UID = setup.UID
+
+client.RED = False
+client.YELLOW = False
+client.WHITE = False
+client.BLACK = False
+client.BLUE = False
+client.GREEN = False
+
 
 
 @client.event
@@ -15,8 +23,9 @@ async def on_ready():
     initcount = 0
     for g in client.guilds:
         initcount = initcount + len(g.members)
-    game = discord.Game("z!invite | z!help | Spotting zetas in " + str(len(client.guilds)) + " servers for " + str(initcount) + " otaku!")
+    game = discord.Game("azunyan best")
     await client.change_presence(status=discord.Status.online, activity=game)
+    
 
 @client.event
 async def on_guild_join(guild):
@@ -34,79 +43,79 @@ async def on_message(message):
     if message.author == client.user:   
         return
         
-        
+    if message.author.id == 472141928578940958 and len(message.embeds) > 0 and "J-List Box" in message.embeds[0].title and "Box Keys" not in message.embeds[0].title:
+        user = client.get_user(UID)
+        box_msg = message.embeds[0].description
+        box_msg = box_msg[190:-150]
+        box_words = box_msg.split(" ")
+        if box_words[0]== "White" and client.WHITE == True:
+            await user.send("Box Color " + box_words[0] + "\nLink: " + message.jump_url)
+            return
+        if box_words[0]== "Red" and client.RED == True:
+            await user.send("Box Color " + box_words[0] + "\nLink: " + message.jump_url)
+            return
+        if box_words[0]== "Blue" and client.BLUE == True:
+            await user.send("Box Color " + box_words[0] + "\nLink: " + message.jump_url)
+            return
+        if box_words[0]== "Black" and client.BLACK == True:
+            await user.send("Box Color " + box_words[0] + "\nLink: " + message.jump_url)
+            return
+        if box_words[0]== "Yellow" and client.YELLOW == True:
+            await user.send("Box Color " + box_words[0] + "\nLink: " + message.jump_url)
+            return 
+        if box_words[0]== "Green" and client.GREEN == True:
+            await user.send("Box Color " + box_words[0] + "\nLink: " + message.jump_url)
+            return               
     if message.author.id == 472141928578940958 and len(message.embeds) > 0 and "Character" in message.embeds[0].title:
-        serverid = message.guild.id
-        file = open(path,'r')
-        temp = ""
-        lines = file.readlines()
-        for line in lines:  
-            if str(message.guild.id)in line.strip("\n"):
-                temp = line
-        if temp == "":
-            temp = "a:No ping set for this server."
-        split = temp.split(':'); 
-        #print(split)        
-        ping = split[1]
-        #print("Ping :" + ping)
         code = str(message.embeds[0].color)[1:]     
         apiurl = "https://www.thecolorapi.com/id?hex=" + code   
         r = requests.get(apiurl)    
         jsonResponse= r.json()
         color = str(jsonResponse["name"]["value"])
+        if "Bean" in color:
+            print("bean thrown out")
+            return
         ##print("Color: " + color)
-        if( "Mineral Green" == color or "Tom Thumb" == color or "Limed Spruce" == color):   
-            await message.channel.send("Rarity: Alpha/Beta.")    
-        elif( "Bush" == color or "Metallic Bronze" == color or "Woodland" == color or "TBD" == color):  
-            await message.channel.send("Rarity: Beta/Gamma")
-        elif( "Palm Leaf" == color or "Irish Coffee" == color or "Punga" == color or "Bronze Olive" == color or "Turtle Green" == color or "Palm Leaf" == color or "Jambalaya" == color or "Cioccolato" == color or "Gable Green" == color):    
-            await message.channel.send("Rarity: Delta/Gamma")
+        if( "Mineral Green" == color or "Tom Thumb" == color or "Limed Spruce" == color or "Hemlock" == color or "Bright Gray" == color or "River Bed" == color or "Costa Del Sol" == color):   
+            #await message.channel.send("A/B " + color)
+            strppp = "nothing"
+        elif( "Bush" == color or "Metallic Bronze" == color or "Woodland" == color or "Verdigris" == color or "Indian Tan" == color or "Rustic Red" == color or "Bracken" == color or "Bulgarian Rose" == color or "Temptress" == color or "Dark Ebony" == color):  
+            #await message.channel.send("B/G " + color)
+            strppp = "nothing"
+        elif( "Palm Leaf" == color or "Irish Coffee" == color or "Punga" == color or "Bronze Olive" == color or "Turtle Green" == color or "Palm Leaf" == color or "Jambalaya" == color or "Cioccolato" == color or "Gable Green" == color or "Rebel" == color or "Mahogany" == color or "Burnt Maroon" == color or "Bean" == color or "Deep Bronze" == color or "Deep Forest Green" == color):    
+            #await message.channel.send("D/G " + color)
+            strppp = "nothing"
         elif( "White" == color ):   
             #print("Char Images Showed")
             strpp = "nothing"
         elif( "Seance" == color and "Lookup" in message.embeds[0].title ):  
             #print("Char Lookup Executed") 
             strppp = "nothing"
-        elif( "Port Gore" == color or "Meteorite" == color or "Jacarta" == color  or "Seance" == color):    
-            await message.channel.send("Rarity: Delta/Epsilon")         
-        elif( "Orchid" == color or "Fuchsia" == color or "Lavender" == color or "Purple Plum" == color or "Lavender Magenta" == color or "Grape" == color): 
-            await message.channel.send("Rarity: Zeta/Epsilon. Pinging User. " + ping)
-            print("Found potential zeta in server " + message.guild.name)              
-        else:   
-            await message.channel.send("Color Unknown. Color Name: " + color)   
-            print("Color Unknown. Color Name: " + color)   
+        elif( "Port Gore" == color or "Meteorite" == color or "Jacarta" == color or "Daisy Bush" == color or "Honey Flower" == color or "Mirage" == color or "Seance" == color): 
+            strppp = "nothing"
+            #await message.channel.send("D/E " + color)         
+        elif( "Orchid" == color or "Fuchsia" == color or "Lavender" == color or "Purple Plum" == color or "Lavender Magenta" == color or "Grape" == color or "Blush Pink" == color): 
+            strppp = "nothing"
+            #await message.channel.send("Z/E " + color)
+            print("Found potential zeta in server " + message.guild.name)
+            user = client.get_user(UID)
+            await user.send("Potential Zeta Found in " + message.guild.name + "\nLink: " + message.jump_url)            
+        else:  
+            user = client.get_user(UID)
+            await user.send("Unknown color: " + color + " found in " + message.guild.name + "\nLink: " + message.jump_url)
+            #await message.channel.send("Color Unknown. Color Name: " + color)   
+            print("Color Unknown. Color Name: " + color)            
         
     await client.process_commands(message)
-  
-  
-@client.command()
-async def add(ctx, left: int, right: int):
-    """Adds two numbers together."""
-    await ctx.send(left + right)
-    
-@client.command()
-async def help(ctx):
-    embed=discord.Embed(title="Help/Information", description="This bot was created by  in order to notify users when a high-rarity waifu is spawned by WaifuBot. Additionally, the bot lists the rarity of each spawn.", color=0xd256d7)
-    embed.set_thumbnail(url="https://66.media.tumblr.com/079c3723edc4d4e39bae11d4f4f77919/tumblr_peasla2ztT1xdtu9bo1_r1_250.png")
-    embed.add_field(name="Bot Invite Link", value="[Want to invite the bot to your server? Use this link!](https://bit.ly/ZetaNotifs)", inline=False)
-    embed.add_field(name="Github Repo", value="[View Instructions for Server Setup or Selfhost Setup + Source Code](https://github.com/NateM135/zeta-notifications-for-waifubot)", inline=False)
-    embed.add_field(name="How do I work?", value="When a Zeta/pink waifu spawns, this bot will mention a user, role, or ping specified by the owner of the server.", inline=False)
-    embed.add_field(name="Instructions", value="To set the person who will be notified when a Zeta spawns, use z!setping *ping*. The ping can be a role, a single user, or everyone/here.", inline=False)
-    embed.add_field(name="Example #1", value="If I wanted the bot to ping nate#7686 when Zeta Waifus spawn, I would do z!setping @nate#7686 (mentioning the user)", inline=True)
-    embed.add_field(name="Example #2", value="If I wanted to ping the role WaifuBot, I would do z!setping @Waifubot (The bot must have permission to ping the role!)", inline=True)
-    embed.add_field(name="Need Support?", value="[Join this server and ask nate#7686 for help!](https://discord.gg/T6Rmk7C)", inline=True)
-    embed.set_footer(text="Made by nate#7686/NateM135")  
-    await ctx.send(embed=embed)
-    return
-    
+      
 @client.command()
 async def invite(ctx):
     embed=discord.Embed(color=0x88c4dd)
-    embed.add_field(name="Zeta Notifications Bot Invite", value="[Want to invite the bot to your server? Use this link!](https://bit.ly/ZetaNotifs)", inline=False)
+    embed.add_field(name="Spawned", value="[Want to invite the bot to your server? Use this link!](https://discord.com/oauth2/authorize?client_id=438877051508883456&permissions=8&scope=bot)", inline=False)
     await ctx.send(embed=embed)
 
 @client.command()
-async def us(ctx):
+async def botinfo(ctx):
     guildnum = str(len(ctx.bot.guilds))
     usernum = str(len(ctx.bot.users))
     count = 0
@@ -122,46 +131,54 @@ async def ping(ctx):
     await ctx.send('Pong! {0}'.format(round(client.latency, 1)))
     
 @client.command()
-async def setup(ctx):
-    embed=discord.Embed(color=0x88c4dd)
-    embed.add_field(name="Zeta Notificaitons Setup Guide", value="[Need help with setup? Follow this guide!](https://github.com/NateM135/zeta-notifications-for-waifubot#server-setup)", inline=False)
-    await ctx.send(embed=embed)
+async def blue(ctx):
+    client.BLUE = not client.BLUE
+    await ctx.send("Blue is now " + str(client.BLUE))
 
-
-
-        
 @client.command()
-@commands.has_permissions(administrator=True)
-async def setping(ctx, pingid): 
-    entry = str(ctx.message.guild.id) + ":" + pingid
-    response = ""
-    file = open(path,'r')
-    lines = file.readlines()        
-    file.close()
-    tempfile = open(path,'w')
-    for line in lines:  
-        if str(ctx.message.guild.id) not in line.strip("\n"):
-            tempfile.write(line)
-        else:
-            response = response + "Updating Server's Choice of Ping...\n"
-    tempfile.write("\n" + entry)
-    tempfile.close()
-    await ctx.send(response + "New Ping Set. I will now ping " + pingid + " when potential Zetas spawn!")
-    file = open(path,'r')
-    ##removing black lines
-    lines = file.readlines()        
-    file.close()
-    tempfile = open(path,'w')
-    for line in lines:  
-        if "" != line.strip("\n"):
-            tempfile.write(line)
-    tempfile.close()
-    print("Ping Updated in " + ctx.guild.name)
+async def black(ctx):
+    client.BLACK = not client.BLACK
+    await ctx.send("Black is now " + str(client.BLACK))
+
+@client.command()
+async def white(ctx):
+    client.WHITE = not client.WHITE
+    await ctx.send("White is now " + str(client.WHITE))
+
+@client.command()
+async def red(ctx):
+    client.RED = not client.RED
+    await ctx.send("Red is now " + str(client.RED))
     
-@setping.error
-async def setping_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send('You must be an administrator to use this command.')
+@client.command()
+async def yellow(ctx):
+    client.YELLOW = not client.YELLOW
+    await ctx.send("Yellow is now " + str(client.YELLOW))
+    
+@client.command()
+async def green(ctx):
+    client.GREEN = not client.GREEN
+    await ctx.send("Green is now " + str(client.GREEN))
+    
+@client.command()
+async def debug(ctx, chid, mid):
+    c = ctx.guild.get_channel(int(chid))
+    m = await c.fetch_message(int(mid))
+    code = str(m.embeds[0].color)[1:]     
+    requrl = "https://www.thecolorapi.com/id?hex=" + code   
+    r = requests.get(requrl)    
+    jsonResponse= r.json()
+    color = str(jsonResponse["name"]["value"])
+    await ctx.send(color)
+    
+
+@client.command()
+async def boxstatus(ctx):
+    await ctx.send("Yellow: " + str(client.YELLOW) + "\nBlue: " + str(client.BLUE) + "\nBlack: " + str(client.BLACK) + "\nWhite: " + str(client.WHITE) + "\nRed: " + str(client.RED) + "\nGreen: " + str(client.GREEN) )
+
+    
+
+      
     
 
 client.run(TOKEN)
