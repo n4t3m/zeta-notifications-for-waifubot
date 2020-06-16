@@ -4,51 +4,22 @@
 
 [![BotInvite](https://img.shields.io/badge/Invite%20bot-Click%20here-ff69b4.svg "Invite the bot to your server")](https://bit.ly/ZetaNotifs) [![ServerInvite](https://img.shields.io/badge/Join%20Test%20Server-Click%20here-success.svg "This is where you can test the bot")](https://discord.gg/3YM9cPq)
 
-**As of now I will be hosting the bot. Invite it with the button above. If I am unable to host it in the future, I will update this README.**
+**As of now I am no longer hosting the bot. WaifuBot will shut down as of 6/22/2020 so I'll be releasing the full project now.**
 
 This bot was created by in order to notify users when a high-rarity waifu is spawned by WaifuBot. Additionally, the bot lists the rarity of each Waifu that spawns.
 
 
-When a Zeta/pink waifu spawns, this bot will mention a user, role, or ping specified by the owner of the server.
+When a Zeta/pink waifu spawns, this bot will DM the user specified in setup.py.
 
-### Server Setup)
+### Server Setup
 
 
-To set the person who will be notified when a Zeta spawns, use 
-
-```
-z!setping <ping>
-```
- 
-The ping can be a role, a single user, or @everyone/@here.
-
-### Examples
-
-###### User
-
-![userexample](https://i.imgur.com/niN2LQS.png)
-
-###### Roles
-
-The first thing you should do is create a role with this permission enabled:
-
-![roleex1](https://i.imgur.com/TE5ymww.png)
-
-After that, you can use the z!setping command again.
-
-![roleex2](https://i.imgur.com/flvw5gG.png)
-
-###### Other Pings
+To set the person who will be notified when a Zeta spawns, go to setup.py and change the UID Parameter. Here is an example of the line would look like.  
 
 ```
-z!setrole @everyone
+UID = 299685173262286849
 ```
 
-```
-z!setrole @here
-```
-
-**In order to ping more than one user you need to create a role!**
 
 ### Normal Spawns
 
@@ -61,9 +32,31 @@ The bot will comment on the rarity of all the spawns in each server it is in. Be
 
 ### Zeta Spawns
 
-This is what the bot will look like when a Zeta is spawned.
+This is what the bot will look like when a Zeta is spawned. It DMs you with a link to the message with the Zeta.
 
-![zetasamplespawn](https://i.imgur.com/VGiiv0q.png)
+(Screenshot is taken with a development bot)
+
+![zetasamplespawn](https://i.imgur.com/ldcWhmp.png)
+
+### Box Finder
+
+The following commands can be used to turn on notifications for certain colors of boxes spawning in servers.
+
+```
+!red
+!yellow
+!blue
+!white
+!black
+!green
+```
+
+Here is what the bot looks like when a box spawns:
+
+(Screenshot is taken with a development bot)
+
+![boxnotifs](https://i.imgur.com/MCNvyzH.png)
+
 
 ### Self Hosting the Bot
 
